@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+<!-- Sovrascrive il titolo della pagina -->
+{% block title %}Eventi della nave - Home{% endblock %}
+
+<!-- Sovrascrive il contenuto del blocco 'content' -->
+{% block content %}
+<h1 class="mb-4 text-center">Eventi sulla Nave</h1>
+
+<!-- Controlla se l'utente è loggato e mostra un messaggio di benvenuto o invita a loggarsi -->
+{% if session.get('user_id') %}
+    
+    <div class="alert alert-info">
+        <span class="text-muted"><b>Benvenuto, {{ session.get('user_name') }}!</b></span>
+      </div>
+      
+{% else %}
+   
+    <div class="alert alert-info">
+       <b> <span class="text-muted">Non sei loggato. <a class="text-danger" href="{{ url_for('login') }}">Accedi</a> per prenotare.</span></b>
+      </div>
+{% endif %}
+
+<!-- Eventi in una griglia -->
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for evento in eventi %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+
+                <!-- Titolo e sottotitolo card -->
+
+                <h5 class="card-title text-info">{{ evento.nome_evento }} <img width="50px" height="50px" src="{{ evento.img }}"></h5>
+                <h6 class="card-subtitle mb-2 text-danger">{{ evento.locale }}</h6>
+                <p class="card-text"><strong>Repliche:</strong></p>
+
+                <!-- Lista delle repliche per evento -->
+
+                <ul class="list-group list-group-flush">
+                    {% for replica in evento.repliche %}
+                    <li class="list-group-item {% if replica.annullato %}text-danger{% endif %}">
+
+                        <!-- Mostra data e ora -->
+
+                        {{ replica.data_ora.strftime('%d-%m-%Y %H:%M') }}
+                        {% if replica.annullato %}
+                            (Annullato)
+                        {% else %}
+                            - Posti disponibili: {{ replica.posti_disponibili }}
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Mostra il pulsante per la  prenotazione solo se l'utente è loggato -->
+
+            {% if session.get('user_id') %}
+            <div class="card-footer">
+                <a href="{{ url_for('repliche', evento_id=evento.id) }}" class="btn btn-outline-info">Prenota</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "locale_id": 1,
+        "nome_evento": "Concerto di Chopin",
+        "img": "\\static\\imgs\\eventi\\chopin composizione.png"
+    },
+    {
+        "id": 2,
+        "locale_id": 3,
+        "nome_evento": "Beethoven sul mare",
+        "img": "\\static\\imgs\\eventi\\Beethoven.png"
+    },
+    {
+        "id": 3,
+        "locale_id": 2,
+        "nome_evento": "Il ventaglio - Goldoni",
+        "img": "\\static\\imgs\\eventi\\il ventaglio goldoni.png"
+    },
+    {
+        "id": 4,
+        "locale_id": 4,
+        "nome_evento": "Pool Brunch Party",
+        "img": "\\static\\imgs\\eventi\\pool brunch party.png"
+    }
+]
